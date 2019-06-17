@@ -3,16 +3,16 @@ const crypto = require("crypto");
 
 //commentsNew Function - GET /posts/:id/comments/new
 const commentNew = (req, res, next) => {
-  let id = req.params.id;
+  const id = req.params.id;
   const post = store.posts.find(post => post.id == id);
   res.render("comments/new", { post });
 };
 
 //commentsCreate Function - POST /posts/:id/comments
 const commentCreate = (req, res, next) => {
-  let id = req.params.id;
+  const id = req.params.id;
   const post = store.posts.find(post => post.id == id);
-  let postIndex = store.posts.indexOf(post);
+  const postIndex = store.posts.indexOf(post);
   const { text } = req.body;
   store.posts[postIndex].comments.push({
     commentId: crypto.randomBytes(16).toString("hex"),
@@ -24,23 +24,23 @@ const commentCreate = (req, res, next) => {
 
 //commentsEdit Function - GET /posts/:id/comments/:commentId/edit
 const commentEdit = (req, res, next) => {
-  let id = req.params.id;
-  let commentId = req.params.commentId;
+  const id = req.params.id;
+  const commentId = req.params.commentId;
   const post = store.posts.find(post => post.id == id);
-  let postIndex = store.posts.indexOf(post);
+  const postIndex = store.posts.indexOf(post);
   const comment = store.posts[postIndex].comments.find(comment => comment.commentId == commentId);
   res.render("comments/edit", { post, comment });
 };
 
 //commentsUpdate Function - PUT /posts/:id/comments/:commentId
 const commentUpdate = (req, res, next) => {
-  let { text } = req.body;
-  let id = req.params.id;
-  let commentId = req.params.commentId;
+  const { text } = req.body;
+  const id = req.params.id;
+  const commentId = req.params.commentId;
   const post = store.posts.find(post => post.id == id);
-  let postIndex = store.posts.indexOf(post);
+  const postIndex = store.posts.indexOf(post);
   const comment = store.posts[postIndex].comments.find(comment => comment.commentId == commentId);
-  let commentIndex = store.posts[postIndex].comments.indexOf(comment);
+  const commentIndex = store.posts[postIndex].comments.indexOf(comment);
   let updatedComment = {
     commentId: commentId,
     text: text
@@ -52,12 +52,12 @@ const commentUpdate = (req, res, next) => {
 
 //commentsDelete Function - DELETE /comments/:id
 const commentDestroy = (req, res, next) => {
-  let id = req.params.id;
-  let commentId = req.params.commentId;
+  const id = req.params.id;
+  const commentId = req.params.commentId;
   const post = store.posts.find(post => post.id == id);
-  let postIndex = store.posts.indexOf(post);
+  const postIndex = store.posts.indexOf(post);
   const comment = store.posts[postIndex].comments.find(comment => comment.commentId == commentId);
-  let commentIndex = store.posts[postIndex].comments.indexOf(comment);
+  const commentIndex = store.posts[postIndex].comments.indexOf(comment);
   store.posts[postIndex].comments.splice(commentIndex, 1);
   console.log("Comment Deleted!");
   res.redirect("/posts");
