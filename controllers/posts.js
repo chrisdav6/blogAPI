@@ -19,7 +19,8 @@ const postCreate = (req, res, next) => {
     id: crypto.randomBytes(16).toString("hex"),
     name: name,
     url: url,
-    text: text
+    text: text,
+    comments: []
   };
   store.posts.push(NewPost);
   console.log("New Post Saved!");

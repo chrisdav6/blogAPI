@@ -55,7 +55,10 @@ const commentDestroy = (req, res, next) => {
   let id = req.params.id;
   let commentId = req.params.commentId;
   const post = store.posts.find(post => post.id == id);
-  post.comments.splice(commentId, 1);
+  let postIndex = store.posts.indexOf(post);
+  const comment = store.posts[postIndex].comments.find(comment => comment.commentId == commentId);
+  let commentIndex = store.posts[postIndex].comments.indexOf(comment);
+  store.posts[postIndex].comments.splice(commentIndex, 1);
   console.log("Comment Deleted!");
   res.redirect("/posts");
 };
