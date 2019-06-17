@@ -3,7 +3,7 @@ const crypto = require("crypto");
 
 //postsIndex Function - GET /posts
 const postIndex = (req, res, next) => {
-  let posts = store.posts;
+  const posts = store.posts;
   res.render("posts/index", { posts });
 };
 
@@ -15,7 +15,7 @@ const postNew = (req, res, next) => {
 //postsCreate Function - POST /posts
 const postCreate = (req, res, next) => {
   const { name, url, text } = req.body;
-  let NewPost = {
+  const NewPost = {
     id: crypto.randomBytes(16).toString("hex"),
     name: name,
     url: url,
@@ -29,7 +29,7 @@ const postCreate = (req, res, next) => {
 
 //postsEdit Function - GET /posts/:id/edit
 const postEdit = (req, res, next) => {
-  let id = req.params.id;
+  const id = req.params.id;
   const post = store.posts.find(post => post.id == id);
   res.render(`posts/edit`, { post });
 };
@@ -37,9 +37,9 @@ const postEdit = (req, res, next) => {
 //postsUpdate Function - PUT /posts/:id
 const postUpdate = (req, res, next) => {
   const { name, url, text } = req.body;
-  let id = req.params.id;
-  let post = store.posts.find(post => post.id == id);
-  let postIndex = store.posts.indexOf(post);
+  const id = req.params.id;
+  const post = store.posts.find(post => post.id == id);
+  const postIndex = store.posts.indexOf(post);
   let updatedPost = {
     id: post.id,
     name: name,
@@ -55,9 +55,9 @@ const postUpdate = (req, res, next) => {
 
 //postsDelete Function - DELETE /posts/:id
 const postDestroy = (req, res, next) => {
-  let id = req.params.id;
+  const id = req.params.id;
   const post = store.posts.find(post => post.id == id);
-  let postIndex = store.posts.indexOf(post);
+  const postIndex = store.posts.indexOf(post);
   if (!post) return res.send("That post does not exist!");
   store.posts.splice(postIndex, 1);
   console.log("Post Deleted!");
