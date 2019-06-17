@@ -2,7 +2,7 @@ const path = require("path");
 const express = require("express");
 const logger = require("morgan");
 const methodOverride = require('method-override');
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 //Require Routes
 const indexRouter = require("./routes/index");
