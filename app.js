@@ -24,11 +24,6 @@ app.use(express.urlencoded({ extended: true }));
 //Set Static Public Folder
 app.use(express.static(path.join(__dirname, "public")));
 
-// Set local variable middleware for store
-app.use((req, res, next) => {
-  next();
-});
-
 // Use Method Override
 app.use(methodOverride('_method'));
 
