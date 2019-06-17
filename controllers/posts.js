@@ -40,7 +40,7 @@ const postUpdate = (req, res, next) => {
   let post = store.posts.find(post => post.id == id);
   let postIndex = store.posts.indexOf(post);
   let updatedPost = {
-    id: id,
+    id: post.id,
     name: name,
     url: url,
     text: text,
@@ -56,8 +56,9 @@ const postUpdate = (req, res, next) => {
 const postDestroy = (req, res, next) => {
   let id = req.params.id;
   const post = store.posts.find(post => post.id == id);
+  let postIndex = store.posts.indexOf(post);
   if (!post) return res.send("That post does not exist!");
-  store.posts.splice(id, 1);
+  store.posts.splice(postIndex, 1);
   console.log("Post Deleted!");
   res.redirect("/posts");
 };

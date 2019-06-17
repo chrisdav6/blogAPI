@@ -1,4 +1,5 @@
 const store = require("../models/store");
+const crypto = require("crypto");
 
 //commentsNew Function - GET /posts/:id/comments/new
 const commentNew = (req, res, next) => {
@@ -11,9 +12,10 @@ const commentNew = (req, res, next) => {
 const commentCreate = (req, res, next) => {
   let id = req.params.id;
   const post = store.posts.find(post => post.id == id);
+  let postIndex = store.posts.indexOf(post);
   const { text } = req.body;
-  store.posts[post.id].comments.push({
-    commentId: store.posts[post.id].comments.length,
+  store.posts[postIndex].comments.push({
+    commentId: crypto.randomBytes(16).toString("hex"),
     text: text
   });
   console.log("New Comment Saved!");
@@ -25,7 +27,8 @@ const commentEdit = (req, res, next) => {
   let id = req.params.id;
   let commentId = req.params.commentId;
   const post = store.posts.find(post => post.id == id);
-  const comment = post.comments[commentId];
+  let postIndex = store.posts.indexOf(post);
+  const comment = store.posts[postIndex].comments.find(comment => comment.commentId == commentId);
   res.render("comments/edit", { post, comment });
 };
 
@@ -35,7 +38,14 @@ const commentUpdate = (req, res, next) => {
   let id = req.params.id;
   let commentId = req.params.commentId;
   const post = store.posts.find(post => post.id == id);
-  post.comments[commentId].text = text;
+  let postIndex = store.posts.indexOf(post);
+  const comment = store.posts[postIndex].comments.find(comment => comment.commentId == commentId);
+  let commentIndex = store.posts[postIndex].comments.indexOf(comment);
+  let updatedComment = {
+    commentId: commentId,
+    text: text
+  }
+  store.posts[postIndex].comments[commentIndex] = updatedComment;
   console.log("Comment Updated!");
   res.redirect("/posts");
 };
