@@ -1,0 +1,25 @@
+<%- include ../partials/header.ejs %>
+
+<div class="container my-5">
+  <h1>New Post</h1>
+
+  <hr class="mb-5">
+
+  <form action="/posts" method="POST">
+    <div class="form-group">
+      <label for="name">Post Name:</label>
+      <input class=" form-control" type="text" name="name" id="name">
+    </div>
+    <div class="form-group">
+      <label for="url">Post URL:</label>
+      <input class="form-control" type="text" name="url" id="url">
+    </div>
+    <div class="form-group">
+      <label for="text">Post Text</label>
+      <textarea class="form-control" name="text" id="text"></textarea>
+    </div>
+    <input class="btn btn-success" type="submit" value="Create Post">
+  </form>
+</div>
+
+<%- include ../partials/footer.ejs %>

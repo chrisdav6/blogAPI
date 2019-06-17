@@ -1,0 +1,55 @@
+<%- include ../partials/header.ejs %>
+
+<div class="container my-5">
+  <div class="d-flex align-items-center">
+    <h1>Blog Posts</h1>
+    <a class="btn btn-success ml-auto" href="/posts/new">Create A Post</a>
+  </div>
+
+
+  <hr class="mb-5">
+
+  <% posts.forEach((post) => { %>
+  <div class="post bg-light p-4">
+    <h2><%= post.name %></h2>
+    <hr>
+    <p class="lead"><%= post.text %></p>
+    <p class="lead">Link to post: <a class="text-dark" href="<%= post.url %>" target="_blank"><%= post.url %></a></p>
+
+
+    <div class="my-5">
+      <div class="d-flex align-items-center">
+        <h4>Comments:</h4>
+        <a class="btn btn-success btn-sm ml-auto" href="posts/<%= post.id %>/comments/new">Add A Comment</a>
+      </div>
+      <% if(post.comments && post.comments.length) { %>
+      <hr>
+      <% post.comments.forEach((comment) => { %>
+      <div class="d-flex align-items-center">
+        <p class="m-0"><%= comment.text %></p>
+        <form class="ml-3" action="/posts/<%= post.id %>/comments/<%= comment.commentId %>/edit" method="GET">
+          <input class="btn btn-link text-warning p-0" type="submit" value="(Edit Comment)">
+        </form>
+        <form class="ml-3" action="/posts/<%= post.id %>/comments/<%= comment.commentId %>?_method=DELETE"
+          method="POST">
+          <input class="btn btn-link text-danger p-0" type="submit" value="(Delete Comment)">
+        </form>
+      </div>
+      <% }); %>
+    </div>
+    <% } %>
+
+
+    <div class="mt-4">
+      <form class="d-inline-block" action="/posts/<%= post.id %>/edit" method="GET">
+        <input class="btn btn-warning" type="submit" value="Update Post">
+      </form>
+      <form class="d-inline-block" action="/posts/<%= post.id %>?_method=DELETE" method="POST">
+        <input class="btn btn-danger" type="submit" value="Delete Post">
+      </form>
+    </div>
+  </div>
+  <% }); %>
+</div>
+
+<%- include ../partials/footer.ejs %>

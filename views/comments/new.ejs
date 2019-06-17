@@ -1,0 +1,17 @@
+<%- include ../partials/header.ejs %>
+
+<div class="container my-5">
+  <h1>New Comment</h1>
+
+  <hr class="mb-5">
+
+  <form action="/posts/<%= post.id %>/comments" method="POST">
+    <div class="form-group">
+      <label for="name">Comment:</label>
+      <input class=" form-control" type="text" name="text" id="text">
+    </div>
+    <input class="btn btn-success" type="submit" value="Add Comment">
+  </form>
+</div>
+
+<%- include ../partials/footer.ejs %>
